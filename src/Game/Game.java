@@ -83,13 +83,10 @@ public class Game extends Canvas implements Runnable
 		t = new Textures(this);
 		bg = new Terrain(this);
 		c = new Controller(this, t);
+		c.createEnemies(enemy_count);
 		e = c.getEnemy();
 		b = c.getBullet();
 		player = new Player(0, 0, t, this, c);
-
-		
-		c.createEnemies(enemy_count);
-		
 
 		
 		

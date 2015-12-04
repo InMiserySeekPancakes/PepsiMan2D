@@ -4,13 +4,13 @@ import Game.Controller;
 import Game.Game;
 import Game_Graphics.Textures;
 
-public class Entity 
+public abstract class Entity 
 {
-	private double y;
-	private double x;
-	private Object game;
-	private Controller c;
-	private Textures t;
+	protected double y;
+	protected double x;
+	protected Game game;
+	protected Controller c;
+	protected Textures t;
 
 	public Entity(double x, double y, Textures t, Game game, Controller c)
 	{
