@@ -10,85 +10,71 @@ import Game.Physics;
 import Game_Classes.Entity;
 import Game_Classes.EntityB;
 
-public class Enemy extends Entity implements EntityB
-{
-	private double x;
-	private double y;
-	private Game game;
-	private Textures t;
+public class Enemy extends Entity implements EntityB {
 	private Random r = new Random();
-	private Player p;
 	private boolean subtractLives = true;
-	private Controller c;
 	private boolean updateVar;
-	
-	public Enemy(double x, double y, Textures t, Game game, Controller c)
-	{
+
+	public Enemy(double x, double y, Textures t, Game game, Controller c) {
 		super(x, y, t, game, c);
 	}
-	public void tick()
-	{
-		x-= r.nextInt(3) +  1 ;
-		
-		if (Physics.bulletCollision(this, game.b))
-		{
-			if (updateVar)
-			{
+
+	public void tick() {
+		x += r.nextInt(3) + 1;
+
+		if (Physics.bulletCollision(this, game.b)) {
+			if (updateVar) {
 				System.out.println("COLLISION DETECTED");
 				c.removeEnemy(this);
 				updateVar = false;
 			}
-		}
-		else
+		} else
 			updateVar = true;
-		
-		if (Physics.playerCollision(this, p))
-		{
-			if(subtractLives )
-			{
+
+		if (Physics.playerCollision(this, game.player)) {
+			if (subtractLives) {
 				game.setLives(game.getLives() - 1);
-				subtractLives  = false;
+				subtractLives = false;
 				c.removeEnemy(this);
-				game.setEnemy_killed(game.getEnemy_killed() +1);
+				game.setEnemy_killed(game.getEnemy_killed() + 1);
 				subtractLives = false;
 			}
-		}
-		else
-		{
+		} else {
 			subtractLives = true;
 		}
-		
-		if (x <= -50) 
-		{
+
+		if (x <= -50) {
 			x = game.WIDTH * game.SCALE + 50 + r.nextInt(200);
 			y = r.nextInt(game.HEIGHT * game.SCALE - 90);
 			game.setEnemy_lost(game.getEnemy_lost() + 1);
 			System.out.println(game.getEnemy_lost());
 		}
-		if(game.getEnemy_lost() >= 5)
-		{
-			//end game
+		if (game.getEnemy_lost() >= 5) {
+			// end game
 			System.out.println("GAME OVER");
 			System.exit(0);
 		}
 	}
-	public void render(Graphics g)
-	{
-		g.drawImage(t.enemy, (int)x, (int)y, null);
+
+	public void render(Graphics g) {
+		if (t.enemy != null) {
+			g.drawImage(t.enemy, (int) x, (int) y, null);
+		}
 	}
-	public double getX() 
-	{
+
+	public double getX() {
 		return x;
 	}
-	public double getY()
-	{
+
+	public double getY() {
 		return y;
 	}
-	public Rectangle getBounds(){
-		return new Rectangle((int)x, (int)y, 44, 84);
+
+	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int) y, 44, 84);
 	}
-	public Enemy getEnemy()
-	{
+
+	public Enemy getEnemy() {
 		return this;
 	}
 

@@ -41,11 +41,10 @@ public class Controller
 		for (int i = 0; i < enemy.size(); i++)
 		{
 			tempEnemy = enemy.get(i);
+			tempEnemy.tick();
 			
 			if(tempEnemy.getX() >= 700)
 				removeEnemy(tempEnemy);
-			
-			tempEnemy.tick();
 		}
 		for (int i = 0; i < bullet.size(); i++)
 		{
@@ -63,10 +62,12 @@ public class Controller
 	}
 	public void render(Graphics g)
 	{
-		for (int i = 0; i < enemy.size(); i++)
-		{
-			tempEnemy = enemy.get(i);
-			tempEnemy.render(g);
+		if(!enemy.isEmpty()){
+			for (int i = 0; i < enemy.size(); i++)
+			{
+				tempEnemy = enemy.get(i);
+				tempEnemy.render(g);
+			}			
 		}
 		for (int i = 0; i < bullet.size(); i++)
 		{
